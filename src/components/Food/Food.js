@@ -13,7 +13,7 @@ const Food = (props) => {
             <p><small>Ratings: {ratings}</small></p>
         
            </div>
-           <button onClick={handleForOrder} className='btn'>Click For Order</button>
+           <button onClick={()=>handleForOrder(props.food)} className='btn'>Click For Order</button>
 
         </div>
     );
