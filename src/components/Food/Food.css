@@ -1,4 +1,28 @@
+.food{
+    border: 1px solid coral;
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+}
+
 .food img{
     height: 250px;
     width: 250px;
+    border: 1px solid crimson;
+    border-radius: 10px;
+}
+
+.btn{
+    cursor: pointer;
+    border: none;
+    background-color: black;
+    color: white;
+    height: 35px;
+    width: 130px;
+    font-size: 1rem;
+    border-radius: 10px;
+}
+
+.btn:hover{
+    color: powderblue;
 }

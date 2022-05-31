@@ -8,14 +8,22 @@ const Foods = () => {
         fetch('items.json')
         .then(res=>res.json())
         .then(data=>setFoods(data));
-    },[])
+    },[]);
+
+    const handleForOrder=()=>{
+        console.log('clicked')
+
+    }
     return (
         <div className='foods'>
+           
             <div className="foods-container">
+            
                {
                    foods.map(food=><Food
                    key={food.id}
                    food={food}
+                   handleForOrder={handleForOrder}
                    ></Food>)
                }
 
