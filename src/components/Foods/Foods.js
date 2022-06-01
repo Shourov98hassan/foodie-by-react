@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { addToDb, getStoredOrder } from '../../utilities/fakedb';
+import Cart from '../Cart/Cart';
 import Food from '../Food/Food';
 import './Foods.css'
 
@@ -11,10 +13,40 @@ const Foods = () => {
         .then(data=>setFoods(data));
     },[]);
 
-    const handleForOrder=(food)=>{
-        console.log(food);
-        const newOrder = [...order,food];
+    useEffect(()=>{
+        const storedCart = getStoredOrder();
+        const savedCart = [];
+        console.log(storedCart);
+        for(const id in storedCart){
+           const addedFood = foods.find(food=>food.id ===id)
+           if(addedFood){
+               const quantity = storedCart[id];
+               addedFood.quantity = quantity;
+               savedCart.push(addedFood);
+           }
+        }
+        setOrder(savedCart);
+    },[foods])
+
+
+
+
+    const handleForOrder=(selectedFood)=>{
+        console.log(selectedFood);
+        let newOrder = [];
+        const exists = order.find(food => food.id === selectedFood.id);
+        if(!exists){
+            selectedFood.quantity = 1;
+            newOrder = [...order,selectedFood];
+        }
+        else{
+            const rest = order.filter(food => food.id !== selectedFood.id);
+            exists.quantity = exists.quantity + 1;
+            newOrder = [...rest, exists];
+        }
+        
         setOrder(newOrder);
+        addToDb(selectedFood.id);
 
     }
     return (
@@ -32,8 +64,9 @@ const Foods = () => {
 
             </div>
             <div className="cart-container">
-                <h1>Order Summery</h1>
-                <p>Selected Items:{order.length}</p>
+              <Cart
+              order = {order}
+              ></Cart>
 
             </div>
             
